@@ -5,7 +5,7 @@ module Problem2 where
 --By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 
 fib x = if x == 0 then 0 else if x == 1 then 1 else fib (x-1) + fib (x-2)
-fib_lessthan_4000000_even_sum = [ fib x | x <- [1..], 
+fib_lessthan_4000000_even_sum = sum [ fib x | x <- [1..], 
         fib x < 4000000 && fib x `mod` 2 == 0]
 
 p2 = do

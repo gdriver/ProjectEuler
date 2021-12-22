@@ -4,11 +4,27 @@ module Problem5 where
 
 --What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 
-spn (d:ds) (n:ns) = if ds == [] then n
-  else if n `mod` d == 0 then spn ds (n:ns)
-    else if ns /= [] then spn [20,19..1] ns
-      else 0
+import Primes
+import Data.List
+
+primesUnder20 :: [Int]
+primesUnder20 = [2,3,5,7,11,13,17,19]
+
+testdivby_range n r1 = t n r1
+  where
+    t m (x:xs)
+      | (m `mod` x == 0 && xs == []) = True
+      | m `mod` x > 0 = False
+      | otherwise = t m xs
+
+--answer is the product of primesUnder20 raised to certain powers
+--by trial and error we find that it is
+-- 2*2*2*2 * 3*3 * 5* 7 * 11 * 13 * 17 * 19
 
 p5 = do
   print "Problem 5:"
-  print (spn [20,19..1] [1..200000000])
+  (print (2*2*2*2 * 3*3 * 5* 7 * 11 * 13 * 17 * 19))
+  
+
+--p5 = do
+--  print "Problem 5:"

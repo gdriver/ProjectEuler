@@ -3,6 +3,8 @@ import Problem1
 --import Problem3
 import Problem4
 import Problem5
+import Problem6
+import Problem7
 
 main = do
   p1
@@ -10,3 +12,5 @@ main = do
 --p3
   p4
   p5
+  p6
+  p7

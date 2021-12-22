@@ -1,5 +1,6 @@
 module Primes where
 
+import Data.List
 import Data.Array.Unboxed
 import Math.NumberTheory.Roots
 
@@ -31,13 +32,6 @@ isprime k = if k > 1 then null [ x | x <- [2..k - 1], k `mod` x == 0] else False
 primefactors n = [x | x <- 2:[3,5..n],
                   isfactor x n && isprime x]
 
-primefactors' n = test n 2 []
-test :: Int -> Int -> [Int] -> [Int]
-test n 2 ps = if n `mod` 2 == 0 then 2:(test n 3 ps) else test n 2 ps
-test n i ps = if i == n then i:ps else
-  if i > n then ps else
-    if n `mod` i == 0 then i:(test n (i+2) ps) else test n (i+2) ps
-
 primes' = 2 : filter (null . tail . primeFactors) [3,5..]
 
 primeFactors n = factor n primes'
@@ -47,4 +41,11 @@ primeFactors n = factor n primes'
         | n `mod` p == 0 = p : factor (n `div` p) (p:ps)
         | otherwise = factor n ps
 
-
+--pfactor :: [Int] -> Int -> Int -> [Int]
+pfactor n = group (pf [] n n)
+  where
+    pf factors n d
+      | d == 1 = factors
+      | isprime d == False = pf factors n (d-1)
+      | n `mod` d == 0 = pf (d:factors) (n `div` d) d
+      | otherwise = pf factors n (d-1)
